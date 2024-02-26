@@ -1,14 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
 
 options = webdriver.ChromeOptions()
 # options.add_argument("--headless")  # Optional: Run Chrome in headless mode
 driver = webdriver.Chrome(options=options)
 driver.get("https://www.reddit.com/r/AmItheAsshole/")
 
-num = 2
+html = driver.find_element(By.TAG_NAME, 'html')
+html.send_keys(Keys.END)
+
+time.sleep(1)
+
 posts = driver.find_elements(By.CSS_SELECTOR, '.w-full.m-0')
-postnum = 2
+num = 2
+postnum = 5
 
 title = posts[postnum].get_attribute('aria-label')
 link = posts[postnum].find_elements(By.XPATH, '*')[0].find_elements(By.XPATH, '*')[0].get_attribute('href')

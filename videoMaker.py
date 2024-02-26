@@ -21,4 +21,4 @@ while True:
 
     time.sleep(0.1)
 driver.get(link)
-input()
+input(done)

@@ -55,12 +55,12 @@ while not savedpostnum >= int(videonum):
     num = 2
 
     title = posts[postnum].get_attribute('aria-label')
-    print(title)
 
     directory = "posts/" + only_alphabets(title) + "/"
 
     try:
         os.makedirs(directory)
+        print(title)
         link = posts[postnum].find_elements(By.XPATH, '*')[0].find_elements(By.XPATH, '*')[0].get_attribute('href')
         driver.get(link)
         paragraph = driver.find_element(By.XPATH,
@@ -78,15 +78,15 @@ while not savedpostnum >= int(videonum):
                 break
         text = remove_emojis(text)
         savedpostnum += 1
-        f = open(directory + "text.txt", "w")
+        f = open(directory + "text.txt", "w", encoding="utf-8")
         f.write(title + "\n" + text)
         f.close()
         tts = gTTS(title + text)
         tts.save(directory + 'text.mp3')
 
-        randomFile = random.choice(os.listdir("videos"))
+        randomFile = random.choice(os.listdir("Background Videos"))
 
-        video = VideoFileClip("videos/" + randomFile)
+        video = VideoFileClip("Background Videos/" + randomFile)
         audio = AudioFileClip(directory + 'text.mp3')
 
         videoDuration = int(video.duration)
